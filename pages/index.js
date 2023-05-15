@@ -1,12 +1,10 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
-import { getFeaturedEvents } from '@/data/eventList';
 import EventList from '@/components/events/event-list';
 import Button from '@/components/ui/button';
+import { getFeaturedEvents } from '@/helpers/api-util';
 
-function Home() {
-  const featuredEvents = getFeaturedEvents();
-
+function Home({ featuredEvents }) {
   return (
     <>
       <Head>
@@ -26,5 +24,13 @@ function Home() {
       </>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const featuredEvents = await getFeaturedEvents();
+  return {
+    props: { featuredEvents: featuredEvents },
+    revalidate: 1800,
+  };
 }
 export default Home;
