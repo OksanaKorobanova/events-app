@@ -1,5 +1,3 @@
-import { use } from 'react';
-
 export default function handler(req, res) {
   if (req.method === 'POST') {
     const email = req.body.email;
@@ -7,8 +5,7 @@ export default function handler(req, res) {
       res.status(422).json({ message: 'Invalid email' });
       return;
     }
-
     console.log(email);
+    res.status(201).json({ message: 'Signed up' });
   }
-  res.status(200).json({ name: 'John Doe' });
 }
