@@ -8,9 +8,7 @@ async function handler(req, res) {
       return;
     }
 
-    const client = await MongoClient.connect(
-      'mongodb+srv://oksanavitol:LiS8yU0CQWWTlGZr@cluster0.ydeabvx.mongodb.net/?retryWrites=true&w=majority'
-    );
+    const client = await MongoClient.connect(process.env.MONGO_URL);
     const db = client.db('newsletter');
 
     await db.collection('emails').insertOne({ email: email });
