@@ -1,4 +1,6 @@
-export default function handler(req, res) {
+import { MongoClient } from 'mongodb';
+
+async function handler(req, res) {
   const eventId = req.query.eventId;
 
   if (req.method === 'GET') {
@@ -21,12 +23,22 @@ export default function handler(req, res) {
     }
 
     const newComment = {
-      id: new Date().toISOString(),
       email,
       name,
       text,
+      eventId,
     };
     console.log(newComment);
+
+    const client = await MongoClient.connect(process.env.MONGO_URL);
+    const db = client.db('events');
+
+    await db.collection('comments').insertOne({ email: email });
+
+    client.close();
+
     res.status(201).json({ message: 'Added comment', comment: newComment });
   }
 }
+
+export default handler;
