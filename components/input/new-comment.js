@@ -8,6 +8,12 @@ function NewComment({ onAddComment }) {
   const nameInputRef = useRef();
   const commentInputRef = useRef();
 
+  function resetValues() {
+    emailInputRef.current.value = '';
+    nameInputRef.current.value = '';
+    commentInputRef.current.value = '';
+  }
+
   function sendCommentHandler(event) {
     event.preventDefault();
 
@@ -28,11 +34,14 @@ function NewComment({ onAddComment }) {
       return;
     }
 
-    onAddComment({
-      email: enteredEmail,
-      name: enteredName,
-      text: enteredComment,
-    });
+    onAddComment(
+      {
+        email: enteredEmail,
+        name: enteredName,
+        text: enteredComment,
+      },
+      resetValues
+    );
   }
 
   return (
