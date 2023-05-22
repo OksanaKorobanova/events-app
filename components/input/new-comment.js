@@ -10,7 +10,6 @@ function NewComment({ onAddComment }) {
 
   function sendCommentHandler(event) {
     event.preventDefault();
-    console.log('here');
 
     const enteredEmail = emailInputRef.current.value;
     const enteredName = nameInputRef.current.value;
